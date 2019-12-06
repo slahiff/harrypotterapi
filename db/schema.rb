@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_06_193102) do
+ActiveRecord::Schema.define(version: 2019_12_06_194337) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(version: 2019_12_06_193102) do
     t.string "slogan"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "student_id"
+    t.index ["student_id"], name: "index_houses_on_student_id"
   end
 
   create_table "schools", force: :cascade do |t|
@@ -37,6 +39,8 @@ ActiveRecord::Schema.define(version: 2019_12_06_193102) do
     t.string "owner"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "house_id"
+    t.index ["house_id"], name: "index_schools_on_house_id"
   end
 
   create_table "students", force: :cascade do |t|
@@ -57,4 +61,6 @@ ActiveRecord::Schema.define(version: 2019_12_06_193102) do
   end
 
   add_foreign_key "examples", "users"
+  add_foreign_key "houses", "students"
+  add_foreign_key "schools", "houses"
 end
